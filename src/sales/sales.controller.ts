@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { SalesService } from './sales.service';
 import { CreateSaleDto } from './dto/create-sale.dto';
@@ -20,23 +21,23 @@ export class SalesController {
     return this.salesService.create(createSaleDto);
   }
 
-  @Get('/day/:id')
+  @Get('/id/:id')
   findAll(@Param('id') id: string) {
     return this.salesService.findAll(id);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.salesService.findOne(+id);
+    return this.salesService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateSaleDto: UpdateSaleDto) {
-    return this.salesService.update(+id, updateSaleDto);
+    return this.salesService.update(id, updateSaleDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.salesService.remove(+id);
+    return this.salesService.remove(id);
   }
 }

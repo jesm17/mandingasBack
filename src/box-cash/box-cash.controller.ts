@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
 import { BoxCashService } from './box-cash.service';
 import { CreateBoxCashDto } from './dto/create-box-cash.dto';
@@ -25,10 +26,10 @@ export class BoxCashController {
     return this.boxCashService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.boxCashService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.boxCashService.findOne(+id);
+  // }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updateBoxCashDto: UpdateBoxCashDto) {
@@ -39,5 +40,10 @@ export class BoxCashController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.boxCashService.remove(+id);
+  }
+
+  @Get('history')
+  async getHistory(@Query('year') y: number, @Query('month') m: number) {
+    return await this.boxCashService.getHistory(y, m);
   }
 }

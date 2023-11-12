@@ -19,15 +19,19 @@ export class SalesService {
     return sales;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} sale`;
+  async findOne(id: string) {
+    const sale = await this.saleModel.findById(id);
+    return sale;
   }
 
-  update(id: number, updateSaleDto: UpdateSaleDto) {
-    return `This action updates a #${id} sale`;
+  async update(id: string, updateSaleDto: UpdateSaleDto) {
+    await this.saleModel.findByIdAndUpdate(id, updateSaleDto);
+
+    return { success: 'success', message: 'Registro actualizado', ok: true };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} sale`;
+  remove(id: string) {
+    this.saleModel.findByIdAndDelete({ _id: id });
+    return { success: 'success', message: 'Registro eliminado', ok: true };
   }
 }
